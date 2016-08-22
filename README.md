@@ -52,7 +52,7 @@ dist/$PLATFORM/bin/selfserv -d tests_results/security/$HOST.1/ssl_gtests/ -n rsa
 dist/$PLATFORM/bin/tstclnt -d tests_results/security/$HOST.1/ssl_gtests/ -V tls1.3:tls1.3 -h localhost -p 4430 -o
 ```
 
-Issue any dummy HTTP:
+Issue a dummy HTTP and the server will echo it with a simple HTTP response:
 ```
 GET /index.html HTTP/1.1
 
