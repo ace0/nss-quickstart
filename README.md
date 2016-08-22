@@ -8,7 +8,7 @@ export USE_64=1
 export ENABLE_TLS_1_3=1
 NSS_ROOT=`pwd`
 hg clone https://hg.mozilla.org/projects/nss
-#hg clone https://hg.mozilla.org/projects/nspr
+hg clone https://hg.mozilla.org/projects/nspr
 
 # In my environment: `hostname` == 'Lotus.local'
 export HOST=`hostname -s`
@@ -27,6 +27,18 @@ export LD_LIBRARY_PATH=dist/$PLATFORM/lib
 # Run NSS tests (this creates data for the server to use)
 cd tests/ssl_gtests
 ./ssl_gtests.sh
+```
+
+For simplicity, all the environment values as they appear on my platform:
+```
+export USE_64=1
+export ENABLE_TLS_1_3=1
+export NSS_ROOT=~/tls13
+export PLATFORM=Darwin15.6.0_64_DBG.OBJ
+export DYLD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
+export LD_LIBRARY_PATH=dist/$PLATFORM/lib
+export HOST=`hostname -s`
+export DOMSUF=local
 ```
 
 ### Run test server
