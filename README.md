@@ -55,7 +55,7 @@ dist/$PLATFORM/bin/selfserv -d $DBDIR -n rsa -p 4430
 dist/$PLATFORM/bin/tstclnt -d $DBDIR -V tls1.3:tls1.3 -h localhost -p 4430 -o
 ```
 
-Issue a dummy HTTP and the server will echo it with a simple HTTP response:
+Issue an HTTP request and the server will echo it with a simple HTTP response:
 ```
 GET /index.html HTTP/1.1
 
