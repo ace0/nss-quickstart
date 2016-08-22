@@ -10,8 +10,8 @@ NSS_ROOT=`pwd`
 hg clone https://hg.mozilla.org/projects/nss
 hg clone https://hg.mozilla.org/projects/nspr
 
-# In my environment: `hostname` == 'Lotus.local'
-export HOST=`hostname -s`
+# In my environment: hostname == 'Lotus.local'
+export HOST=Lotus
 export DOMSUF=local
 
 # Fetch and build NSS
@@ -37,7 +37,7 @@ export NSS_ROOT=~/tls13
 export PLATFORM=Darwin15.6.0_64_DBG.OBJ
 export DYLD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
 export LD_LIBRARY_PATH=dist/$PLATFORM/lib
-export HOST=`hostname -s`
+export HOST=Lotus
 export DOMSUF=local
 ```
 
