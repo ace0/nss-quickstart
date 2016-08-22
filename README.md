@@ -29,6 +29,8 @@ cd tests/ssl_gtests
 ./ssl_gtests.sh
 ```
 
+`ssl_gtests` creates a series of DB files in `$NSS_ROOT/tests_results/security/$HOST.1/ssl_gtests1` that we'll use for the test client and server.
+
 For simplicity, all the environment values as they appear on my platform:
 ```
 export USE_64=1
@@ -39,17 +41,18 @@ export DYLD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
 export LD_LIBRARY_PATH=dist/$PLATFORM/lib
 export HOST=Lotus
 export DOMSUF=local
+export DBDIR=$NSS_ROOT/tests_results/security/$HOST.1/ssl_gtests
 ```
 
 ### Run test server
 Run from NSS_ROOT:
 ```
-dist/$PLATFORM/bin/selfserv -d tests_results/security/$HOST.1/ssl_gtests/ -n rsa -p 4430
+dist/$PLATFORM/bin/selfserv -d $DBDIR -n rsa -p 4430
 ```
 
 ### Run test client
 ```
-dist/$PLATFORM/bin/tstclnt -d tests_results/security/$HOST.1/ssl_gtests/ -V tls1.3:tls1.3 -h localhost -p 4430 -o
+dist/$PLATFORM/bin/tstclnt -d $DBDIR -V tls1.3:tls1.3 -h localhost -p 4430 -o
 ```
 
 Issue a dummy HTTP and the server will echo it with a simple HTTP response:
