@@ -42,6 +42,9 @@ export LD_LIBRARY_PATH=dist/$PLATFORM/lib
 export HOST=Lotus
 export DOMSUF=local
 export DBDIR=$NSS_ROOT/tests_results/security/$HOST.1/ssl_gtests
+
+# Enables debug tracing
+export TRACE=1
 ```
 
 ### Run test server
