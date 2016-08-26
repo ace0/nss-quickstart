@@ -107,8 +107,8 @@ cd tests/ssl_gtests
 
 For simplicity, all the environment values as they appear on my platform:
 ```
-export USE_64=1
-export ENABLE_TLS_1_3=1
+#export USE_64=1
+#export ENABLE_TLS_1_3=1
 export NSS_ROOT=~/tls13
 export PLATFORM=Darwin15.6.0_64_DBG.OBJ
 export DYLD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
@@ -131,12 +131,3 @@ dist/$PLATFORM/bin/selfserv -d $DBDIR -n rsa -p 4430
 ```
 dist/$PLATFORM/bin/tstclnt -d $DBDIR -V tls1.3:tls1.3 -h localhost -p 4430 -o
 ```
-
-Issue an HTTP request and the server will echo it with a simple HTTP response:
-```
-GET /index.html HTTP/1.1
-
-
-```
-(Include two blank lines.)
-
