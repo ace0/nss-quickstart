@@ -6,7 +6,6 @@ Instructions for building and running the NSS test server and client with TLS 1.
 # Fetch and build NSS
 export USE_64=1
 export ENABLE_TLS_1_3=1
-NSS_ROOT=`pwd`
 hg clone https://hg.mozilla.org/projects/nss
 hg clone https://hg.mozilla.org/projects/nspr
 
@@ -31,16 +30,13 @@ cd tests/ssl_gtests
 
 `ssl_gtests` creates a series of DB files in `$NSS_ROOT/tests_results/security/$HOST.1/ssl_gtests1` that we'll use for the test client and server.
 
-For simplicity, all the environment values as they appear on my platform:
+All environ
 ```
 export USE_64=1
 export ENABLE_TLS_1_3=1
 export NSS_ROOT=~/tls13
-export PLATFORM=Darwin15.6.0_64_DBG.OBJ
-export DYLD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
-export LD_LIBRARY_PATH=dist/$PLATFORM/lib
-export HOST=Lotus
-export DOMSUF=local
+export PLATFORM=Linux4.4_x86_64_cc_glibc_PTH_64_DBG.OBJ
+export LD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
 export DBDIR=$NSS_ROOT/tests_results/security/$HOST.1/ssl_gtests
 
 # Enables debug tracing
@@ -78,15 +74,15 @@ sudo apt-get -y install zlib1g-dev
 ```
 ## Fetch and build NSS
 ```
-export USE_64=1
-export ENABLE_TLS_1_3=1
-#NSS_ROOT=`pwd`
+mkdir ~/tls13
+cd ~/tls13
+NSS_ROOT=`pwd`
+
 hg clone https://hg.mozilla.org/projects/nss
 hg clone https://hg.mozilla.org/projects/nspr
 
-# In my environment: hostname == 'Lotus.local'
-#export HOST=Lotus
-#export DOMSUF=local
+export USE_64=1
+export ENABLE_TLS_1_3=1
 
 # Fetch and build NSS
 cd nss
@@ -94,8 +90,7 @@ make nss_build_all
 
 # Check $NSS_ROOT/dist/ for the PLATFORM
 # Mine was: 
-export PLATFORM=Darwin15.6.0_64_DBG.OBJ
-export DYLD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
+export PLATFORM=Linux4.4_x86_64_cc_glibc_PTH_64_DBG.OBJ
 export LD_LIBRARY_PATH=dist/$PLATFORM/lib
 
 # Run NSS tests (this creates data for the server to use)
@@ -103,28 +98,22 @@ cd tests/ssl_gtests
 ./ssl_gtests.sh
 ```
 
-`ssl_gtests` creates a series of DB files in `$NSS_ROOT/tests_results/security/$HOST.1/ssl_gtests1` that we'll use for the test client and server.
+`ssl_gtests` creates a series of DB files in `$NSS_ROOT/tests_results/security/$HOSTNAME.1/ssl_gtests1` that we'll use for the test client and server.
 
-For simplicity, all the environment values as they appear on my platform:
+Environment variables on Linux:
 ```
-#export USE_64=1
-#export ENABLE_TLS_1_3=1
+export USE_64=1
+export ENABLE_TLS_1_3=1
 export NSS_ROOT=~/tls13
-export PLATFORM=Darwin15.6.0_64_DBG.OBJ
-export DYLD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
-export LD_LIBRARY_PATH=dist/$PLATFORM/lib
-export HOST=Lotus
-export DOMSUF=local
-export DBDIR=$NSS_ROOT/tests_results/security/$HOST.1/ssl_gtests
-
-# Enables debug tracing
-export TRACE=1
+export PLATFORM=Linux4.4_x86_64_cc_glibc_PTH_64_DBG.OBJ
+export LD_LIBRARY_PATH=$NSS_ROOT/dist/$PLATFORM/lib
+export DBDIR=$NSS_ROOT/tests_results/security/$HOSTNAME.1/ssl_gtests
 ```
 
 ### Run test server
 Run from NSS_ROOT:
 ```
-dist/$PLATFORM/bin/selfserv -d $DBDIR -n rsa -p 4430
+dist/$PLATFORM/bin/selfserv -d $DBDIR -n rsa -p 4430 -V tls1.3:tls1.3
 ```
 
 ### Run test client
